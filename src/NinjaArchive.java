@@ -26,6 +26,7 @@ public class NinjaArchive {
     public static void main(String[] args) {
         List<NinjaEvent> events = readEventsFromFile("src/ninja_events.tsv");
         displayHighPowerNinjas(events, 5000);
+        displayJoninEvents(events);
 
     }
 
@@ -62,4 +63,14 @@ public class NinjaArchive {
         uniqueNinjas.forEach(System.out::println);
     }
 
+    private static void displayJoninEvents(List<NinjaEvent> events) {
+        List<NinjaEvent> joninEvents = events.stream()
+                .filter(event -> event.rank.equals("Jonin"))
+                .sorted(Comparator.comparing((NinjaEvent e) -> e.date).reversed())
+                .collect(Collectors.toList());
+
+        for (NinjaEvent event : joninEvents) {
+            System.out.println(event.date + ": " + event.characterName + " - " + event.description);
+        }
+    }
 }
