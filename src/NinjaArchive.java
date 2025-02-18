@@ -25,6 +25,7 @@ class NinjaEvent {
 public class NinjaArchive {
     public static void main(String[] args) {
         List<NinjaEvent> events = readEventsFromFile("src/ninja_events.tsv");
+        displayHighPowerNinjas(events, 5000);
 
     }
 
@@ -49,6 +50,16 @@ public class NinjaArchive {
             e.printStackTrace();
         }
         return events;
+    }
+
+    private static void displayHighPowerNinjas(List<NinjaEvent> events, double threshold) {
+        Set<String> uniqueNinjas = new LinkedHashSet<>();
+        for (NinjaEvent event : events) {
+            if (event.powerPoints > threshold) {
+                uniqueNinjas.add(event.characterName);
+            }
+        }
+        uniqueNinjas.forEach(System.out::println);
     }
 
 }
